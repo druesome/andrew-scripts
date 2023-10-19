@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto-click SU Button
 // @namespace    auto-click-su-button
-// @version      0.2
+// @version      0.3
 // @description  Auto-clicks SU Button so you don't have to!
 // @match     https://mc.a8c.com/tools/support-session/*
 // @updateURL	https://github.com/druesome/andrew-scripts/raw/main/auto-click-su-button.user.js
