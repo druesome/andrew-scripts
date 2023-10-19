@@ -4,8 +4,8 @@
 // @version      0.2
 // @description  Auto-clicks SU Button so you don't have to!
 // @match     https://mc.a8c.com/tools/support-session/*
-// @updateURL	https://github.com/druesome/andrew-scripts/blob/main/auto-click-su-button.user.js
-// @downloadURL	https://github.com/druesome/andrew-scripts/blob/main/auto-click-su-button.user.js
+// @updateURL	https://github.com/druesome/andrew-scripts/raw/main/auto-click-su-button.user.js
+// @downloadURL	https://github.com/druesome/andrew-scripts/raw/main/auto-click-su-button.user.js
 // @grant        none
 // ==/UserScript==
 
