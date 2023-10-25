@@ -3,6 +3,8 @@
 // @namespace    insta-copy-site-url
 // @version      0.3
 // @description  Instantly copies URL of user's sites in one click.
+// @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
+// @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
 // @match        https://*.zendesk.com/agent/*
