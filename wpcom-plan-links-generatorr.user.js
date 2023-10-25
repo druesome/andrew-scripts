@@ -3,6 +3,8 @@
 // @namespace    wpcom-plan-links-generator
 // @version      1.0
 // @description  Copy plan links instantly.
+// @updateURL	   https://github.com/druesome/andrew-scripts/raw/master/wpcom-plan-links-generatorr.user.js
+// @downloadURL	 https://github.com/druesome/andrew-scripts/raw/master/wpcom-plan-links-generatorr.user.js
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
 // @match        https://*.zendesk.com/agent/*
