@@ -3,6 +3,8 @@
 // @namespace    atomic-cli-links
 // @version      1.0
 // @description  Adds links to CLI on Atomic sites in Zendesk.
+// @updateURL	 https://github.com/druesome/andrew-scripts/raw/main/atomic-cli-links.user.js
+// @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/atomic-cli-links.user.js
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
 // @grant        none
