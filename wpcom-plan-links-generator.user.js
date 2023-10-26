@@ -53,7 +53,9 @@ var planOptions = [
 function addPlans() {
   $('.user__info_container .sites .site').each(function() {
     var siteURL = $(this).find('.primary-domain').text();
-    if (!$(this).hasClass('plansadded')) {
+    var jetpackSpan = $(this).find('.jetpack');
+
+    if (!$(this).hasClass('plansadded') && jetpackSpan.length === 0) {
       $(this).addClass('plansadded');
       var selectElement = $('<select name="wpcomplans" id="wpcomplans" form="wpcomplans"></select>');
 
