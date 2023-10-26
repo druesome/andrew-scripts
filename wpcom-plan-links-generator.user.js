@@ -2,7 +2,7 @@
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
 // @version      1.0
-// @description  Copy plan links instantly.
+// @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @author       druesome
