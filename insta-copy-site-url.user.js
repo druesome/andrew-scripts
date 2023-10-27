@@ -24,6 +24,12 @@ GM_addStyle ( `
     background-color: #cfe88b;
   }
 }
+
+span.primary-domain {
+    font-style: normal;
+    font-size: 13px;
+    color: #888;
+}
 ` );
 
 var $ = window.jQuery;
