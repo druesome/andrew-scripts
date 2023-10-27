@@ -3,8 +3,8 @@
 // @namespace    easy-coupon-code-copier
 // @version      1.0
 // @description  Lets you copy coupon codes in Zendesk
-// @updateURL	 *
-// @downloadURL	 *
+// @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/easy-coupon-code-copier.user.js
+// @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/easy-coupon-code-copier.user.js
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
 // @require      http://code.jquery.com/jquery-latest.js
