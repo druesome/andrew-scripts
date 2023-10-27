@@ -28,7 +28,7 @@ GM_addStyle ( `
 span.primary-domain {
     font-style: normal;
     font-size: 13px;
-    color: #888;
+    color: #222;
 }
 ` );
 
