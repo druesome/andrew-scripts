@@ -7,6 +7,7 @@
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/atomic-cli-links.user.js
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
+// @require      http://code.jquery.com/jquery-latest.js
 // @grant        none
 // ==/UserScript==
 
