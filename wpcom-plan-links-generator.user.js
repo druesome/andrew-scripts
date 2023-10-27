@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
-// @version      1.0
+// @version      1.1
 // @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
@@ -17,7 +17,18 @@
 GM_addStyle ( `
 .copied-message {
   background-color: #cfe88b;
-  padding: 3px;
+  padding: 5px;
+  width: 50%;
+  display: block;
+}
+
+select#wpcomplans {
+  display: block;
+}
+
+span.primary-domain {
+    font-style: normal;
+    font-size: 13px;
 }
 ` );
 
