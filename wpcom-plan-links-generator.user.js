@@ -25,11 +25,6 @@ GM_addStyle ( `
 select#wpcomplans {
   display: block;
 }
-
-span.primary-domain {
-    font-style: normal;
-    font-size: 13px;
-}
 ` );
 
 var $ = window.jQuery;
