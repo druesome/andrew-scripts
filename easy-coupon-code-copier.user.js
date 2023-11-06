@@ -46,7 +46,7 @@ var $ = window.jQuery;
 
 var couponCodes = {
     10: 'wphappyjz688', // October
-    11: 'nocoupon', // November
+    11: 'wphappynogfas', // November
     12: 'nocoupon', // December
     // ... add more coupon codes for each month
 };
