@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Easy Coupon Code Copier
 // @namespace    easy-coupon-code-copier
-// @version      1.0
+// @version      1.1
 // @description  Quickly copy coupon codes in Zendesk!
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/easy-coupon-code-copier.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/easy-coupon-code-copier.user.js
@@ -44,31 +44,23 @@ margin-bottom: 20px;
 
 var $ = window.jQuery;
 
-var couponCodes = {
-    10: 'wphappyjz688', // October
-    11: 'wphappynogfas', // November
-    12: 'nocoupon', // December
-    // ... add more coupon codes for each month
-};
-
 var monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
 ];
+
+function fetchCouponCodes() {
+    const cacheBuster = Date.now(); 
+    const url = 'https://raw.githubusercontent.com/druesome/andrew-scripts/main/couponCodes.json' + '?cache=' + cacheBuster;
+
+    return fetch(url)
+        .then(response => response.json())
+        .then(data => data.codes)
+        .catch(error => console.error('Failed to fetch coupon codes: ', error));
+}
 
 function addCouponLinks() {
     $('.user__info_container .actions').each(function(site) {
-        if(!$(this).hasClass('itsadded')) {
+        if (!$(this).hasClass('itsadded')) {
             $(this).addClass('itsadded');
             var span = $('<span>');
             span.addClass('coupon-code');
@@ -76,48 +68,52 @@ function addCouponLinks() {
             span.click(function() {
                 var currentDate = new Date();
                 var currentMonth = currentDate.getMonth() + 1;
-                var couponCode = couponCodes[currentMonth];
+                fetchCouponCodes().then(couponCodes => {
+                    var couponCode = couponCodes[currentMonth.toString()];
+                    if (couponCode) {
+                        if (couponCode === 'nocoupon') {
+                            var monthName = monthNames[currentMonth - 1];
+                            span.text('No Coupon for ' + monthName);
+                            span.addClass('no-coupon');
+                        } else {
+                            navigator.clipboard.writeText(couponCode)
+                                .then(function() {
+                                    console.log('Coupon code copied to clipboard: ' + couponCode);
+                                    span.text('Copied');
+                                    setTimeout(function() {
+                                        span.text(couponCode);
+                                    }, 2000);
+                                })
+                                .catch(function(error) {
+                                    console.error('Failed to copy coupon code to clipboard: ', error);
+                                });
+                        }
+                    } else {
+                        console.error('No coupon code found for the current month');
+                    }
+                });
+            });
+            var currentMonth = new Date().getMonth() + 1;
+            fetchCouponCodes().then(couponCodes => {
+                var couponCode = couponCodes[currentMonth.toString()];
                 if (couponCode) {
                     if (couponCode === 'nocoupon') {
                         var monthName = monthNames[currentMonth - 1];
                         span.text('No Coupon for ' + monthName);
                         span.addClass('no-coupon');
                     } else {
-                        navigator.clipboard.writeText(couponCode)
-                            .then(function() {
-                                console.log('Coupon code copied to clipboard: ' + couponCode);
-                                span.text('Copied');
-                                setTimeout(function() {
-                                    span.text(couponCode);
-                                }, 2000);
-                            })
-                            .catch(function(error) {
-                                console.error('Failed to copy coupon code to clipboard: ', error);
-                            });
+                        span.text(couponCode);
                     }
                 } else {
                     console.error('No coupon code found for the current month');
                 }
             });
-            var currentMonth = new Date().getMonth() + 1;
-            var couponCode = couponCodes[currentMonth];
-            if (couponCode) {
-                if (couponCode === 'nocoupon') {
-                    var monthName = monthNames[currentMonth - 1];
-                    span.text('No Coupon for ' + monthName);
-                    span.addClass('no-coupon');
-                } else {
-                    span.text(couponCode);
-                }
-            } else {
-                console.error('No coupon code found for the current month');
-            }
             $('.user__info_container .actions').append(span);
         }
     });
 }
 
 // Loop until links are added
-window.setInterval(function(){
+window.setInterval(function() {
     addCouponLinks();
 }, 1000);
