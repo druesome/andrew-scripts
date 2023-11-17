@@ -74,6 +74,7 @@ function addPlans() {
         var isWooExpress = $(this).find('.wooexpressessential, .wooexpressperformance').length > 0;
         var isWpcomPlan = $(this).find('.personal, .premium, .business, .ecommerce').length > 0;
         var isFree = $(this).find('.free').length > 0;
+        var isBusinessOrEcommerce = $(this).find('.business, .ecommerce').length > 0;
 
         if (!$(this).hasClass('plansadded') && jetpackSpan.length === 0) {
             $(this).addClass('plansadded');
@@ -89,9 +90,11 @@ function addPlans() {
                     groupLabel = planOptions[i].label;
                     optgroupElement = $('<optgroup label="' + groupLabel + '"></optgroup>');
                 } else {
+                    // Hide 50 GB and 100 GB upgrades for Business, eCommerce, Woo Express Essential, and Woo Express Performance sites
+                    var isUpgradeOption = planOptions[i].value.includes('wordpress_com_1gb_space_addon_yearly');
                     if ((isFree) || // If the site is free, show all options
                         (isWooExpress && planOptions[i].label.includes('Woo')) ||
-                        (isWpcomPlan && !planOptions[i].label.includes('Woo'))) {
+                        (isWpcomPlan && !planOptions[i].label.includes('Woo') && !(isBusinessOrEcommerce && isUpgradeOption))) {
                         var optionElement = $('<option value="' + planOptions[i].value + '">' + planOptions[i].label + '</option>');
                         if (groupLabel !== '') {
                             optgroupElement.append(optionElement);
@@ -123,6 +126,7 @@ function addPlans() {
         }
     });
 }
+
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
