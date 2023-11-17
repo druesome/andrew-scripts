@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
-// @version      1.1
+// @version      1.2
 // @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
@@ -51,60 +51,78 @@ var planOptions = [
     { value: 'personal-3-years', label: 'Personal 3-year' },
     { value: 'premium-3-years', label: 'Premium 3-year' },
     { value: 'business-3-years', label: 'Business 3-year' },
-    { value: 'ecommerce-3-years', label: 'eCommerce 3-year' }
+    { value: 'ecommerce-3-years', label: 'eCommerce 3-year' },
+    { value: '', label: '100-Year Subscription' },
+    { value: 'wp_bundle_hundred_year', label: '100-year plan' },
+    { value: '', label: 'Woo Express Subscriptions' },
+    { value: 'wooexpress-small-monthly', label: 'Woo Express: Essential monthly' },
+    { value: 'wooexpress-small-yearly', label: 'Woo Express: Essential yearly' },
+    { value: 'wooexpress-medium-monthly', label: 'Woo Express: Performance monthly' },
+    { value: 'wooexpress-medium-yearly', label: 'Woo Express: Performance yearly' },
+    { value: '', label: 'Add-on Subscriptions' },
+    { value: 'site-redirect', label: 'Site Redirect'},
+    { value: 'wordpress_com_1gb_space_addon_yearly:-q-50', label: '50 GB Upgrade'},
+    { value: 'wordpress_com_1gb_space_addon_yearly:-q-100', label: '100 GB Upgrade'}
 ];
 
 // Go through each site and add the dropdown
 
 function addPlans() {
-  $('.user__info_container .sites .site').each(function() {
-    var siteURL = $(this).find('.primary-domain').text();
-    var jetpackSpan = $(this).find('.jetpack');
+    $('.user__info_container .sites .site').each(function() {
+        var siteURL = $(this).find('.primary-domain').text();
+        var jetpackSpan = $(this).find('.jetpack');
+        var isWooExpress = $(this).find('.wooexpressessential, .wooexpressperformance').length > 0;
+        var isWpcomPlan = $(this).find('.personal, .premium, .business, .ecommerce').length > 0;
+        var isFree = $(this).find('.free').length > 0;
 
-    if (!$(this).hasClass('plansadded') && jetpackSpan.length === 0) {
-      $(this).addClass('plansadded');
-      var selectElement = $('<select name="wpcomplans" id="wpcomplans" form="wpcomplans"></select>');
+        if (!$(this).hasClass('plansadded') && jetpackSpan.length === 0) {
+            $(this).addClass('plansadded');
+            var selectElement = $('<select name="wpcomplans" id="wpcomplans" form="wpcomplans"></select>');
 
-      // Add "Select a plan" option
-      var selectOption = $('<option disabled selected>Select a Plan</option>');
-      selectElement.append(selectOption);
+            var selectOption = $('<option disabled selected>Select a Plan</option>');
+            selectElement.append(selectOption);
 
-      var groupLabel = '';
-      for (var i = 0; i < planOptions.length; i++) {
-        if (planOptions[i].value === '') {
-          groupLabel = planOptions[i].label;
-          var optgroupElement = $('<optgroup label="' + groupLabel + '"></optgroup>');
-          selectElement.append(optgroupElement);
-        } else {
-          var optionElement = $('<option value="' + planOptions[i].value + '">' + planOptions[i].label + '</option>');
-          if (groupLabel !== '') {
-            optgroupElement.append(optionElement);
-          } else {
-            selectElement.append(optionElement);
-          }
+            var groupLabel = '';
+            var optgroupElement;
+            for (var i = 0; i < planOptions.length; i++) {
+                if (planOptions[i].value === '') {
+                    groupLabel = planOptions[i].label;
+                    optgroupElement = $('<optgroup label="' + groupLabel + '"></optgroup>');
+                } else {
+                    if ((isFree) || // If the site is free, show all options
+                        (isWooExpress && planOptions[i].label.includes('Woo')) ||
+                        (isWpcomPlan && !planOptions[i].label.includes('Woo'))) {
+                        var optionElement = $('<option value="' + planOptions[i].value + '">' + planOptions[i].label + '</option>');
+                        if (groupLabel !== '') {
+                            optgroupElement.append(optionElement);
+                        } else {
+                            selectElement.append(optionElement);
+                        }
+                    }
+                }
+                if (optgroupElement && optgroupElement.children().length > 0) {
+                    selectElement.append(optgroupElement);
+                }
+            }
+
+            selectElement.on('change', function() {
+                var selectedPlan = $(this).val();
+                if (selectedPlan) {
+                    var checkoutURL = 'https://wordpress.com/checkout/' + siteURL + '/' + selectedPlan;
+                    copyToClipboard(checkoutURL);
+                    $(this).hide();
+                    $(this).after('<span class="copied-message">Copied</span>');
+                    setTimeout(function() {
+                        $('.copied-message').remove();
+                        selectElement.show();
+                    }, 2000);
+                }
+            });
+
+            $(this).find('.site-links').append(selectElement);
         }
-      }
-
-      selectElement.on('change', function() {
-        var selectedPlan = $(this).val();
-        if (selectedPlan) {
-          var checkoutURL = 'https://wordpress.com/checkout/' + siteURL + '/' + selectedPlan;
-          copyToClipboard(checkoutURL);
-          $(this).hide();
-          $(this).after('<span class="copied-message">Copied</span>');
-          setTimeout(function() {
-            $('.copied-message').remove();
-            selectElement.show();
-          }, 2000);
-        }
-      });
-
-      $(this).find('.site-links').append(selectElement);
-    }
-  });
+    });
 }
-
-// Copy plan URL to clipboard
 
 function copyToClipboard(text) {
     navigator.clipboard.writeText(text)
@@ -115,8 +133,6 @@ function copyToClipboard(text) {
             console.error('Failed to copy URL to clipboard:', error);
         });
 }
-
-// Loop until we reach the last site
 
 window.setInterval(function() {
     addPlans();
