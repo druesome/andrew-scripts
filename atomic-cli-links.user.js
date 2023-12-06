@@ -8,7 +8,6 @@
 // @author       druesome
 // @match        https://*.apps.zdusercontent.com/*
 // @require      http://code.jquery.com/jquery-latest.js
-// @grant        none
 // ==/UserScript==
 
 var $ = window.jQuery;
