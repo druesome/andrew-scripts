@@ -22,8 +22,6 @@ function addBackupLinks() {
       downloadLink.setAttribute('href', backupLink);
       downloadLink.textContent = 'Download backup';
       var hyphenText = document.createTextNode(' - ');
-
-      // Insert the hyphen text node before the download link
       nodeTitle.insertAdjacentElement('afterend', downloadLink);
       downloadLink.parentNode.insertBefore(hyphenText, downloadLink);
 
