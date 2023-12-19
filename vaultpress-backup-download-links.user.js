@@ -2,7 +2,7 @@
 // @name         VaultPress Backup Download Links
 // @namespace    vaultpress-backup-download-links
 // @version      1.0
-// @description  Adds links VaultPress backups
+// @description  Adds links to VaultPress backups in the Backup Browser
 // @updateURL    https://github.com/druesome/andrew-scripts/raw/main/vaultpress-backup-download-links.user.js
 // @downloadURL  https://github.com/druesome/andrew-scripts/raw/main/vaultpress-backup-download-links.user.js
 // @author       druesome
