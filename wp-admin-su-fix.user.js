@@ -3,7 +3,9 @@
 // @namespace    wp-admin-su-fix
 // @namespace    http://wordpress.com/
 // @version      0.1
-// @description  Redirect to the WordPress admin page after login based on clicked link
+// @description  Redirect to the WordPress admin page after SSO login based on clicked link
+// @updateURL	 https://github.com/druesome/andrew-scripts/raw/main/wp-admin-su-fix.user.js
+// @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wp-admin-su-fix.user.js
 // @author       druesome
 // @match        https://wordpress.com/*
 // @match        https://*/wp-admin/
