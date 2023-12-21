@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
-// @version      1.2
+// @version      1.3
 // @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
@@ -69,15 +69,16 @@ var planOptions = [
 
 function addPlans() {
     $('.user__info_container .sites .site').each(function() {
-        var siteURL = $(this).find('.primary-domain').text();
-        var jetpackSpan = $(this).find('.jetpack');
-        var isWooExpress = $(this).find('.wooexpressessential, .wooexpressperformance').length > 0;
-        var isWpcomPlan = $(this).find('.personal, .premium, .business, .ecommerce').length > 0;
-        var isFree = $(this).find('.free').length > 0;
-        var isBusinessOrEcommerce = $(this).find('.business, .ecommerce').length > 0;
+        var $site = $(this); // Using $site for better readability
+        var siteURL = $site.find('.site-domain').first().text(); // Get the site URL without 'https://'
+        var jetpackSpan = $site.find('.jetpack');
+        var isWooExpress = $site.find('.wooexpressessential, .wooexpressperformance').length > 0;
+        var isWpcomPlan = $site.find('.personal, .premium, .business, .businesstrial, .ecommerce').length > 0;
+        var isFree = $site.find('.free').length > 0;
+        var isDomainOnly = $site.find('.domainonly').length > 0;
 
-        if (!$(this).hasClass('plansadded') && jetpackSpan.length === 0) {
-            $(this).addClass('plansadded');
+        if (!$site.hasClass('plansadded') && jetpackSpan.length === 0) {
+            $site.addClass('plansadded');
             var selectElement = $('<select name="wpcomplans" id="wpcomplans" form="wpcomplans"></select>');
 
             var selectOption = $('<option disabled selected>Select a Plan</option>');
@@ -90,11 +91,9 @@ function addPlans() {
                     groupLabel = planOptions[i].label;
                     optgroupElement = $('<optgroup label="' + groupLabel + '"></optgroup>');
                 } else {
-                    // Hide 50 GB and 100 GB upgrades for Business, eCommerce, Woo Express Essential, and Woo Express Performance sites
-                    var isUpgradeOption = planOptions[i].value.includes('wordpress_com_1gb_space_addon_yearly');
-                    if ((isFree) || // If the site is free, show all options
+                    if ((isFree || isDomainOnly) ||
                         (isWooExpress && planOptions[i].label.includes('Woo')) ||
-                        (isWpcomPlan && !planOptions[i].label.includes('Woo') && !(isBusinessOrEcommerce && isUpgradeOption))) {
+                        (isWpcomPlan && !planOptions[i].label.includes('Woo'))) {
                         var optionElement = $('<option value="' + planOptions[i].value + '">' + planOptions[i].label + '</option>');
                         if (groupLabel !== '') {
                             optgroupElement.append(optionElement);
@@ -113,19 +112,19 @@ function addPlans() {
                 if (selectedPlan) {
                     var checkoutURL = 'https://wordpress.com/checkout/' + siteURL + '/' + selectedPlan;
                     copyToClipboard(checkoutURL);
-                    $(this).hide();
+                    $(this).next('.copied-message').remove(); // Remove previous message if present
                     $(this).after('<span class="copied-message">Copied</span>');
                     setTimeout(function() {
                         $('.copied-message').remove();
-                        selectElement.show();
                     }, 2000);
                 }
             });
 
-            $(this).find('.site-links').append(selectElement);
+            $site.find('.site-links').append(selectElement);
         }
     });
 }
+
 
 
 function copyToClipboard(text) {
