@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Atomic CLI Links
 // @namespace    atomic-cli-links
-// @version      1.0
+// @version      1.1
 // @description  Adds links to CLI on Atomic sites in Zendesk.
 // @updateURL	 https://github.com/druesome/andrew-scripts/raw/main/atomic-cli-links.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/atomic-cli-links.user.js
@@ -20,7 +20,7 @@ function addcliLinks() {
         var $atomicSpan = $site.find('.atomic');
         if ($atomicSpan.length > 0 && !$site.hasClass('cliadded')) {
             $site.addClass('cliadded');
-            var siteURL = 'https://' + $site.find('.primary-domain').text();
+            var siteURL = 'https://' + $site.find('.site-domain').first().text();
             var cliLink = $('<a>').attr('href', siteURL + '/_cli').attr('target', '_blank').text('CLI');
             $site.find('.site-links').append($('<li>').append(cliLink));
         }
@@ -28,8 +28,6 @@ function addcliLinks() {
 }
 
 // Loop until links are added
-
 window.setInterval(function() {
     addcliLinks();
 }, 1000);
-
