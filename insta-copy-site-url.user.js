@@ -15,7 +15,7 @@
 
 
 GM_addStyle ( `
-  span.primary-domain {
+  span.cp_btn {
   transition: all 0.3s;
   border-radius: 3px;
 
@@ -25,7 +25,7 @@ GM_addStyle ( `
   }
 }
 
-span.primary-domain {
+span.cp_btn {
     font-style: normal;
     font-size: 13px;
     color: #222;
@@ -38,12 +38,13 @@ var $ = window.jQuery;
 
 function constructLinks() {
     $('.user__info_container .sites .site:not(.thisdone)').each(function() {
-        var siteURL = $(this).find('.primary-domain').text();
-        $(this).addClass('thisdone');
-        var primaryDomain = $(this).find('.primary-domain');
-        primaryDomain.addClass('cp_btn');
-        primaryDomain.on('click', function() {
-            copy_url(siteURL, primaryDomain);
+        var $site = $(this);
+        var siteURL = 'https://' + $site.find('.site-domain').first().text();
+        $site.addClass('thisdone');
+        var $siteDomain = $site.find('.site-domain').first();
+        $siteDomain.addClass('cp_btn');
+        $siteDomain.on('click', function() {
+            copy_url(siteURL, $siteDomain);
         });
     });
 }
