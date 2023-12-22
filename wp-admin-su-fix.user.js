@@ -48,7 +48,7 @@ function handleAdditionalLinks() {
             console.log('Additional link clicked. Target URL:', targetUrl);
             GM_setValue('postSSORedirect', targetUrl);
             console.log('Tampermonkey Storage - Saved Redirect URL:', GM_getValue('postSSORedirect'));
-            window.location.href = targetUrl;
+            location.replace(targetUrl);
         });
     });
 }
