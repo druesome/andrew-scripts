@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
-// @version      1.3
+// @version      1.4
 // @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
@@ -33,25 +33,25 @@ var $ = window.jQuery;
 
 var planOptions = [
     { value: '', label: 'Monthly Subscriptions' },
-    { value: 'personal-monthly', label: 'Personal monthly' },
-    { value: 'premium-monthly', label: 'Premium monthly' },
-    { value: 'business-monthly', label: 'Business monthly' },
-    { value: 'ecommerce-monthly', label: 'eCommerce monthly' },
+    { value: 'starter-monthly', label: 'Starter monthly' },
+    { value: 'explorer-monthly', label: 'Explorer monthly' },
+    { value: 'creator-monthly', label: 'Creator monthly' },
+    { value: 'entrepreneur-monthly', label: 'Entrepreneur monthly' },
     { value: '', label: 'Yearly Subscriptions' },
-    { value: 'personal', label: 'Personal yearly' },
-    { value: 'premium', label: 'Premium yearly' },
-    { value: 'business', label: 'Business yearly' },
-    { value: 'ecommerce', label: 'eCommerce yearly' },
+    { value: 'starter', label: 'Starter yearly' },
+    { value: 'explorer', label: 'Explorer yearly' },
+    { value: 'creator', label: 'Creator yearly' },
+    { value: 'entrepreneur', label: 'Entrepreneur yearly' },
     { value: '', label: 'Two-Year Subscriptions' },
-    { value: 'personal-2-years', label: 'Personal 2-year' },
-    { value: 'premium-2-years', label: 'Premium 2-year' },
-    { value: 'business-2-years', label: 'Business 2-year' },
-    { value: 'ecommerce-2-years', label: 'eCommerce 2-year' },
+    { value: 'starter-2-years', label: 'Starter 2-year' },
+    { value: 'explorer-2-years', label: 'Explorer 2-year' },
+    { value: 'creator-2-years', label: 'Creator 2-year' },
+    { value: 'entrepreneur-2-years', label: 'Entrepreneur 2-year' },
     { value: '', label: 'Three-Year Subscriptions' },
-    { value: 'personal-3-years', label: 'Personal 3-year' },
-    { value: 'premium-3-years', label: 'Premium 3-year' },
-    { value: 'business-3-years', label: 'Business 3-year' },
-    { value: 'ecommerce-3-years', label: 'eCommerce 3-year' },
+    { value: 'starter-3-years', label: 'Starter 3-year' },
+    { value: 'explorer-3-years', label: 'Explorer 3-year' },
+    { value: 'creator-3-years', label: 'Creator 3-year' },
+    { value: 'entrepreneur-3-years', label: 'Entrepreneur 3-year' },
     { value: '', label: '100-Year Subscription' },
     { value: 'wp_bundle_hundred_year', label: '100-year plan' },
     { value: '', label: 'Woo Express Subscriptions' },
@@ -73,7 +73,7 @@ function addPlans() {
         var siteURL = $site.find('.site-domain').first().text(); // Get the site URL without 'https://'
         var jetpackSpan = $site.find('.jetpack');
         var isWooExpress = $site.find('.wooexpressessential, .wooexpressperformance').length > 0;
-        var isWpcomPlan = $site.find('.personal, .premium, .business, .businesstrial, .ecommerce').length > 0;
+        var isWpcomPlan = $site.find('.starter, .explorer, .creator, .creatortrial, .entrepreneur, .personal, .premium, .business, .businesstrial, .ecommerce').length > 0;
         var isFree = $site.find('.free').length > 0;
         var isDomainOnly = $site.find('.domainonly').length > 0;
 
