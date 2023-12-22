@@ -2,7 +2,7 @@
 // @name         WP-Admin SU Fix
 // @namespace    wp-admin-su-fix
 // @namespace    http://wordpress.com/
-// @version      0.2
+// @version      0.3
 // @description  Redirect to the clicked WordPress admin panel link after SU.
 // @updateURL	 https://github.com/druesome/andrew-scripts/raw/main/wp-admin-su-fix.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wp-admin-su-fix.user.js
@@ -32,7 +32,7 @@
                 console.log('Admin link clicked. Target URL:', targetUrl);
                 GM_setValue('postSSORedirect', targetUrl);
                 console.log('Tampermonkey Storage - Saved Redirect URL:', GM_getValue('postSSORedirect'));
-                window.location.href = targetUrl;
+                location.replace(targetUrl);
             });
         });
     }
