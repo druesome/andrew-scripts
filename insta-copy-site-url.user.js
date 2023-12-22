@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Insta-Copy Site URL
 // @namespace    insta-copy-site-url
-// @version      1.1
+// @version      1.2
 // @description  Instantly copies URL of user's sites in one click.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
@@ -39,7 +39,7 @@ var $ = window.jQuery;
 function constructLinks() {
     $('.user__info_container .sites .site:not(.thisdone)').each(function() {
         var $site = $(this);
-        var siteURL = 'https://' + $site.find('.site-domain').first().text();
+        var siteURL = $site.find('.site-domain').first().text();
         $site.addClass('thisdone');
         var $siteDomain = $site.find('.site-domain').first();
         $siteDomain.addClass('cp_btn');
