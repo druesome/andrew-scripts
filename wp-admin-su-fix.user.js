@@ -63,7 +63,7 @@ function handleAdditionalLinks() {
             if (postSSORedirect) {
                 console.log('Redirecting to saved URL.');
                 GM_setValue('postSSORedirect', null);
-                window.location.href = postSSORedirect;
+                location.replace(postSSORedirect);
             }
         } else {
             handleAdminLinks();
