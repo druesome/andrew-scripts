@@ -4,6 +4,10 @@
     "11": "nocoupon",
     "12": "wphappy60g1d5",
     "1": "nocoupon",
-    "2": "nocoupon"
+    "2": "nocoupon",
+    "13": {
+      "code": "NEWYEAR2024",
+      "expiration": "2024-01-02"
+    }
   }
 }
