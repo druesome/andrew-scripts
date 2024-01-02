@@ -42,7 +42,7 @@ var monthNames = [
 
 function fetchCouponCodes() {
   const cacheBuster = Date.now();
-  const url = 'https://raw.githubusercontent.com/druesome/andrew-scripts/main/couponCodes.json' + '?cache=' + cacheBuster;
+  const url = 'https://raw.githubusercontent.com/druesome/andrew-scripts/main/couponCodes.json?cache=' + cacheBuster;
 
   return fetch(url)
     .then(response => response.json())
