@@ -17,6 +17,7 @@ GM_addStyle(`
     padding: 8px;
     background: #f7f7f7;
     border: 1px solid #ccc;
+    margin: 2px;
 
     &:hover {
       cursor: pointer;
