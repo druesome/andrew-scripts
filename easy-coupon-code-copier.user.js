@@ -25,15 +25,7 @@ GM_addStyle(`
   }
 
   span.no-coupon {
-    transition: all 0.3s;
-    padding: 8px;
-    background: #ffeeee;
-    border: 1px solid #df808d;
-
-    &:hover {
-      cursor: pointer;
-      background-color: #ffe0e4;
-    }
+    display: none;
   }
 
   div.actions {
@@ -99,37 +91,6 @@ function addCouponLinks() {
         $('.user__info_container .actions').append(span);
       };
 
-      // Add one-off coupon code
-      var addOneOffCoupon = function (couponData) {
-        var span = $('<span>');
-        span.addClass('coupon-code');
-        span.css('cursor', 'pointer');
-        span.click(function () {
-          if (!isCouponExpired(couponData.expiration)) {
-            navigator.clipboard.writeText(couponData.code)
-              .then(function () {
-                console.log('One-off coupon code copied to clipboard: ' + couponData.code);
-                span.text('Copied');
-                setTimeout(function () {
-                  span.text(couponData.code);
-                }, 2000);
-              })
-              .catch(function (error) {
-                console.error('Failed to copy one-off coupon code to clipboard: ', error);
-              });
-          }
-        });
-
-        if (isCouponExpired(couponData.expiration)) {
-          span.text('Expired');
-          span.addClass('no-coupon');
-        } else {
-          span.text(couponData.code);
-        }
-
-        $('.user__info_container .actions').append(span);
-      };
-
       var currentMonth = new Date().getMonth() + 1;
       fetchCouponCodes().then(couponCodes => {
         var regularCouponCode = couponCodes[currentMonth.toString()];
@@ -140,8 +101,25 @@ function addCouponLinks() {
         }
 
         var oneOffCouponData = couponCodes['13'];
-        if (oneOffCouponData && typeof oneOffCouponData === 'object') {
-          addOneOffCoupon(oneOffCouponData);
+        if (oneOffCouponData && typeof oneOffCouponData === 'object' && !isCouponExpired(oneOffCouponData.expiration)) {
+          var span = $('<span>');
+          span.addClass('coupon-code');
+          span.css('cursor', 'pointer');
+          span.click(function () {
+            navigator.clipboard.writeText(oneOffCouponData.code)
+              .then(function () {
+                console.log('One-off coupon code copied to clipboard: ' + oneOffCouponData.code);
+                span.text('Copied');
+                setTimeout(function () {
+                  span.text(oneOffCouponData.code);
+                }, 2000);
+              })
+              .catch(function (error) {
+                console.error('Failed to copy one-off coupon code to clipboard: ', error);
+              });
+          });
+          span.text(oneOffCouponData.code);
+          $('.user__info_container .actions').append(span);
         }
       });
     }
