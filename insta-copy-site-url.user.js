@@ -55,11 +55,8 @@ function constructLinks() {
                     copy_url(siteURL, $siteDomain);
                 });
 
-            // Move the .darc span beside the URL and add the "DARC" text inside it
+            // Set DARC span
             var $darcSpan = $siteDomain.next('.darc');
-            if ($darcSpan.length) {
-                $siteDomain.after($darcSpan);
-            }
 
             // Remove the surrounding link
             $siteDomain.closest('a').contents().unwrap();
