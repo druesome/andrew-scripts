@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         WPCOM Plan Links Generator
 // @namespace    wpcom-plan-links-generator
-// @version      1.3
+// @version      1.4
 // @description  Generate and copy plan links instantly.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/wpcom-plan-links-generator.user.js
@@ -73,7 +73,7 @@ function addPlans() {
         var siteURL = $site.find('.site-domain').first().text(); // Get the site URL without 'https://'
         var jetpackSpan = $site.find('.jetpack');
         var isWooExpress = $site.find('.wooexpressessential, .wooexpressperformance').length > 0;
-        var isWpcomPlan = $site.find('.personal, .premium, .business, .businesstrial, .ecommerce').length > 0;
+        var isWpcomPlan = $site.find('.starter, .explorer, .creator, .creatortrial, .entrepreneur').length > 0;
         var isFree = $site.find('.free').length > 0;
         var isDomainOnly = $site.find('.domainonly').length > 0;
 
