@@ -1,4 +1,5 @@
 var incompatiblePlugins = {
+        'akismet/akismet.php' : '"akismet" has been deactivated, it deletes data necessary to manage your site and is not supported on WordPress.com.',
     'advanced-database-cleaner/advanced-db-cleaner.php' : '"advanced-database-cleaner" has been deactivated, it deletes data necessary to manage your site and is not supported on WordPress.com.',
         'advanced-reset-wp/advanced-reset-wp.php'          : '"advanced-reset-wp" has been deactivated, it deletes data necessary to manage your site and is not supported on WordPress.com.',
         'advanced-wp-reset/advanced-wp-reset.php'          : '"advanced-wp-reset" has been deactivated, it deletes data necessary to manage your site and is not supported on WordPress.com.',
