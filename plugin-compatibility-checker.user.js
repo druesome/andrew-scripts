@@ -2,7 +2,7 @@
 // @name         Plugin Compatibility Checker
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Check for incompatible plugins
+// @description  Check for incompatible plugins in Blog RC
 // @author       Druesome
 // @match        https://mc.a8c.com/tools/reportcard/blog/?blog_id=*
 // @grant        none
