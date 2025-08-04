@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Insta-Copy Site URL
 // @namespace    insta-copy-site-url
-// @version      1.3
+// @version      1.4
 // @description  Instantly copies URL of user's sites in one click.
 // @updateURL	   https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
 // @downloadURL	 https://github.com/druesome/andrew-scripts/raw/main/insta-copy-site-url.user.js
@@ -15,7 +15,7 @@
 
 
 GM_addStyle ( `
-  span.site-domain {
+  span.site-domain, span.blog-id {
   transition: all 0.3s;
   border-radius: 3px;
 
@@ -25,10 +25,17 @@ GM_addStyle ( `
   }
 }
 
-span.site-domain {
+span.site-domain, span.blog-id {
     font-style: normal;
     font-size: 13px;
     color: #222;
+}
+span.blog-id {
+    background: #eee;
+    padding: 0 4px 0 4px;
+    font-size: 12px;
+    color: #555;
+    margin-left: 5px;
 }
 ` );
 
@@ -49,11 +56,11 @@ function constructLinks() {
             var $siteDomain = $(this);
             var siteURL = $siteDomain.text();
 
-                // If the site-domain is the first one, add the cpy_btn class and handle click event
-                $siteDomain.addClass('cpy_btn');
-                $siteDomain.on('click', function() {
-                    copy_url(siteURL, $siteDomain);
-                });
+            // If the site-domain is the first one, add the cpy_btn class and handle click event
+            $siteDomain.addClass('cpy_btn');
+            $siteDomain.on('click', function() {
+                copy_url(siteURL, $siteDomain);
+            });
 
             // Set DARC span
             var $darcSpan = $siteDomain.next('.darc');
@@ -64,11 +71,27 @@ function constructLinks() {
             // Build a new link around the DARC span and make it open in a new tab
             var $darcLink = $('<a>').attr('href', 'https://mc.a8c.com/tools/reportcard/domain/?domain=' + encodeURIComponent(siteURL)).attr('target', '_blank').append($darcSpan);
             $siteDomain.after($darcLink);
+
+            // Find the blog_id and create a copyable span if it doesn't already exist
+            var $blogLink = $site.find('.site-links a'); // adjust this selector if needed
+            if ($blogLink.length) {
+                var blogId = new URL($blogLink.attr('href')).searchParams.get('blog_id');
+                if (blogId) {
+                    // Check if the blog id span already exists
+                    if ($site.find('.blog-id').length === 0) {
+                        var $blogIdSpan = $('<span class="blog-id cpy_btn">').text(blogId);
+                        $blogIdSpan.on('click', function() {
+                            copy_url(blogId, $blogIdSpan);
+                        });
+
+                        // Find the primary-domain-badge and insert the blog id span after it
+                        $site.find('.primary-domain-badge').after($blogIdSpan);
+                    }
+                }
+            }
         });
     });
 }
-
-
 
 // Copy the URL
 
